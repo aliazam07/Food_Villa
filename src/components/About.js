@@ -34,7 +34,7 @@ class About extends React.Component {
         </p>
        
         <Profile name={"First Child"}  />
-        <Profile name={"Second Child"} />
+     
       </div>
     );
   }

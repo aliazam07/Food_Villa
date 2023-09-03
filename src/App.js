@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import ReactDOM from "react-dom/client";
 
 import Body from "./components/Body";
@@ -13,16 +13,31 @@ import Header from "./components/Header";
 import "./index.css";
 import Instamart from "./components/Instamart";
 import Shimmer from "./components/Shimmer";
+import Cart from "./components/Cart";
+import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import store from "./utils/store";
 
 const Instamart = lazy(() => import("./components/Instamart"));
 const About = lazy(() => import("./components/About"));
 const AppLayout = () => {
+  const [user, setUser] = useState({
+    name: "Md Ali Azam",
+    email: "support@gmail.com",
+  });
   return (
-    <div>
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <Provider store={store}>
+      <UserContext.Provider
+        value={{
+          user: user,
+          setUser: setUser,
+        }}
+      >
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
+    </Provider>
   );
 };
 const appRouter = createBrowserRouter([
@@ -34,7 +49,7 @@ const appRouter = createBrowserRouter([
       {
         path: "/about", // parentPath/{path} => localhost:1244/about
         element: (
-          <Suspense fallback={<h1>Loading........</h1>} >
+          <Suspense fallback={<h1>Loading........</h1>}>
             <About />
           </Suspense>
         ),
@@ -64,6 +79,10 @@ const appRouter = createBrowserRouter([
             <Instamart />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

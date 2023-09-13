@@ -18,8 +18,8 @@ import UserContext from "./utils/UserContext";
 import { Provider } from "react-redux";
 import store from "./utils/store";
 
-const Instamart = lazy(() => import("./components/Instamart"));
-const About = lazy(() => import("./components/About"));
+// const Instamart = lazy(() => import("./components/Instamart"));
+// const About = lazy(() => import("./components/About"));
 const AppLayout = () => {
   const [user, setUser] = useState({
     name: "Md Ali Azam",

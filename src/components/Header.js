@@ -1,15 +1,16 @@
-import { useState, useContext } from "react";
-import Logo from "../assets/img/foodvilla.png";
-import { Link } from "react-router-dom";
-import UserContext from "../utils/UserContext";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Logo from "../assets/img/foodvilla.png";
+import UserContext from "../utils/UserContext";
+import useOnline from "../utils/useOnline";
 
 // SPA - Single Page Application???
 // Client Side Routing
 
 const Title = () => (
   <a href="/">
-    <img className="logo" alt="logo" src={Logo} />
+    <img data-testid="logo" className="logo" alt="logo" src={Logo} />
   </a>
 );
 
@@ -18,6 +19,9 @@ const Header = () => {
 
   const { user } = useContext(UserContext);
   const cartItems = useSelector(store => store.cart.items);
+  const isOnline = useOnline();
+  
+  
   return (
     <div className="header">
       <Title />
@@ -53,6 +57,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      <h1 data-testid="online">{isOnline ? "✅" : "🔴"}</h1>
       <h1 className="font-bold text-xl mt-5"></h1>
       {isLoggedIn ? (
         <button className="login-btn" onClick={() => setIsLoggedIn(false)}>
